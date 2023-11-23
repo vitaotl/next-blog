@@ -21,7 +21,7 @@ const Comments = ({ postSlug }: { postSlug: string }) => {
   const { status } = useSession()
 
   const { data, mutate, isLoading } = useSWR(
-    `http://localhost:3000/api/comments?postSlug=${postSlug}`,
+    `${process.env.NEXTAUTH_URL}/api/comments?postSlug=${postSlug}`,
     fetcher
   )
 
@@ -29,7 +29,7 @@ const Comments = ({ postSlug }: { postSlug: string }) => {
 
   const handleSubmit = async () => {
     try {
-      await fetch(`http://localhost:3000/api/comments`, {
+      await fetch(`${process.env.NEXTAUTH_URL}/api/comments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -63,7 +63,7 @@ const Comments = ({ postSlug }: { postSlug: string }) => {
       <div className={styles.comments}>
         {isLoading
           ? "Loading..."
-          : data.comments.map((comment: Comment) => {
+          : data?.comments.map((comment: Comment) => {
               return (
                 <div className={styles.comment} key={comment.id}>
                   <div className={styles.user}>

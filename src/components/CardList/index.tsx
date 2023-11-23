@@ -7,7 +7,7 @@ import { Post } from "@/types"
 
 const getData = async (page: number, cat: string) => {
   const res = await fetch(
-    `http://localhost:3000/api/posts?page=${page}&cat=${cat}`,
+    `${process.env.NEXTAUTH_URL}/api/posts?page=${page}&cat=${cat}`,
     {
       cache: "no-store"
     }
